@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31402.337
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senai.SPMGWebApi", "Senai.SPMGMobile.WebApi\Senai.SPMGWebApi.csproj", "{5CA4BE84-0F85-46BB-9280-325C518B2816}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5CA4BE84-0F85-46BB-9280-325C518B2816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CA4BE84-0F85-46BB-9280-325C518B2816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CA4BE84-0F85-46BB-9280-325C518B2816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CA4BE84-0F85-46BB-9280-325C518B2816}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ABFA9F7B-AC8C-4A16-AC1B-939B9A21A737}
+	EndGlobalSection
+EndGlobal
