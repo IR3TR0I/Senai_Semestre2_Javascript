@@ -3,16 +3,17 @@ import { Route, BrowserRouter as Router, Switch, Redirect} from 'react-router-do
 import { parseJwt, usuarioAutenticado } from './services/auth';
 
 
-import './index.css';
 
 
-import App from './Paginas/home/App';
+import Home from './Paginas/home/Home';
 import Login from './Paginas/Login/Login.Js';
 import CadastrarConsulta from './Paginas/Consultas/CadastrarConsultaAdm';
 import ListarConsultas from './Paginas/Consultas/ListarConsultasPaciente'
+import ListarConsultas from './Paginas/Consultas/ListarConsultasMedico'
 import NotFound from './Paginas/Notfound/NotFound';
 
 import reportWebVitals from './reportWebVitals';
+import Home from './Paginas/home/Home';
 
 
 //constante para ver se o usúario pode entrar nas paginas que apenas o adm pode
@@ -34,9 +35,11 @@ const routing = (
   <Router>
     <div>
       <Switch>
-        <Route exact path="/" component = {App} /> 
+        <Route exact path="/" component = {Home} /> 
         <Route path="/login" component = {Login} />
         <Route path="/Cadastrarconsulta" component= {CadastrarConsulta}/>
+        <Route path="/ListarConsultas" component={ListarConsultas}/>
+        <Route path="/ListarConsultasPaciente" component={ListarConsultas}/>
         <Route path="/ListarConsultas" component={ListarConsultas}/>
         <Route exact path="/notfound" component={NotFound}/>
         <Redirect to = "/notfound"/> {/*Volta para pagina NotFound*/}

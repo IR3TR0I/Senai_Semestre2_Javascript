@@ -78,7 +78,85 @@ class Login extends Component {
 
 
 
-    render() 
+    render() {   
+
+        return (
+
+            <div>
+
+                <Header />
+
+                <main>
+
+                    <section className="content">
+
+                        <div className="login-titulo">
+                            <h1>LOGIN</h1>
+                        </div>
+
+                        <form onSubmit={this.EfetuarLogin}>
+
+                            <input
+                                type="text"
+                                className="campo-email"
+                                placeholder="Insira o seu email"
+                                name="emailUser"
+                                value={this.state.emailUser}
+                                onChange={this.AtualizaStateCampo}
+                            />
+
+                            <input
+                                type="password"
+                                className="campo-senha"
+                                placeholder="Insira a sua senha"
+                                name="senhaUser"
+                                value={this.state.senhaUser}
+                                onChange={this.AtualizaStateCampo}
+                            />
+
+                            {
+                                this.state.isLoading === true &&
+                                <div>
+                                    <button
+                                        className="btn-entrar"
+                                        type="submit"
+                                        disabled
+                                    >
+                                        LOADING
+                                    </button>
+                                </div>
+                            }
+
+                            {
+                                this.state.isLoading === false &&
+                                <div>
+                                    <button
+                                        className="btn-entrar"
+                                        type="submit"
+                                        disabled={this.state.emailUser === '' || this.state.senhaUser === '' ? 'none' : ''}
+                                    >
+                                        ENTRAR
+                                    </button>
+                                </div>
+                            }
+
+                            <p className="msg-erro"> {this.state.erroMensagem} </p>
+
+                        </form>
+
+                    </section>
+
+                </main>
+
+                <Footer />
+
+            </div>
+
+        )
+
+    }
+
 }
+
 
 export default Login;
