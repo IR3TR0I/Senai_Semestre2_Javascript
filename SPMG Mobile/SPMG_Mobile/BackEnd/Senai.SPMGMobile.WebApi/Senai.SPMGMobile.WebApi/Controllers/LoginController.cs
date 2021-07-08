@@ -19,50 +19,67 @@ namespace Senai.SPMGMobile.WebApi.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private new IUsuarioRepository User { get; set; }
+        private IUsuarioRepository _usuarioRepository { get; set; }
 
         public LoginController()
         {
-            User = new UsuarioRepository();
+            _usuarioRepository = new UsuarioRepository();
         }
 
-        [HttpPost("Login")]
-        public IActionResult Login(Usuario login)
+        [HttpPost]
+        public IActionResult Post(LoginViewModel login)
         {
             try
             {
-                Usuario Login = User.Login(login.Email, login.Senha);
+                Usuario usuarioBuscado = _usuarioRepository.Login(login.Email, login.Senha);
 
-                if (Login == null)
+                if (usuarioBuscado == null)
                 {
-                    return NotFound("Usuario ou senha incorretos");
+                    return NotFound("Seu E-mail ou senha estão Inválidos!");
                 }
+
 
                 var Claims = new[]
                 {
-                    new Claim(JwtRegisteredClaimNames.Email, Login.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, Login.IdUsuario.ToString()),
-                    new Claim(ClaimTypes.Role, Login.IdTipoUsuario.ToString()),
-                    new Claim("role", Login.IdTipoUsuario.ToString()),
-                    new Claim("nameUser", Login.Email)
-                };
+                    // e-mail do usuário autenticado
+                    new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email),
 
-                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("Medical-chave-autenticacao"));
+                    // ID do usuário autenticado
+                    new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado.IdUsuario.ToString()),
+
+                    // tipo de usuário que foi autenticado (Administrador ou Comum)
+                    new Claim(ClaimTypes.Role, usuarioBuscado.IdTipoUsuario.ToString()),
+
+                    //  tipo de usuário que foi autenticado (Administrador ou Comum) de forma personalizada
+                    new Claim("role", usuarioBuscado.IdTipoUsuario.ToString()),
+
+                    // nome do usuário que foi autenticado
+                    new Claim(JwtRegisteredClaimNames.Name, usuarioBuscado.Nome)
+                };
+                //token
+                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("spmg-Chave-autenticação"));
+                //header
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-                var token = new JwtSecurityToken
-                    (
-                        issuer: "MedGrup.webApi",
-                        audience: "MedGrup.webApi",
-                        claims: Claims,
-                        expires: DateTime.Now.AddMinutes(10),
-                        signingCredentials: creds
-                    );
+                //gerando o Token
+                var Token = new JwtSecurityToken(
+                    //Emissor
+                    issuer: "Spmed.webApi",
+                    //destino do Token
+                    audience: "Spmed.webApi",
+                    //todos os dados que foram definidos nas claims
+                    claims: Claims,
+                    //Tempo para o token Expirar
+                    expires: DateTime.Now.AddMinutes(30),
+                    //credencias do Token 
+                    signingCredentials: creds
+                );
 
-                return Ok(
-                        new { token = new JwtSecurityTokenHandler().WriteToken(token) }
-                    );
-
+                //Retonar OK Junto ao token
+                return Ok(new
+                {
+                    Token = new JwtSecurityTokenHandler().WriteToken(Token)
+                });
             }
             catch (Exception ex)
             {
@@ -71,4 +88,5 @@ namespace Senai.SPMGMobile.WebApi.Controllers
         }
     }
 }
+
 

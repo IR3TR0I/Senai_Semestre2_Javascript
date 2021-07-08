@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Nest;
 using Senai.SPMGMobile.WebApi.Domains;
 using Senai.SPMGMobile.WebApi.Interrfaces;
 using Senai.SPMGMobile.WebApi.Repositories;
@@ -17,148 +18,151 @@ namespace Senai.SPMGMobile.WebApi.Controllers
     [ApiController]
     public class ConsultaController : ControllerBase
     {
-        private IConsultaRepository Consulta { get; set; }
+       private IConsultaRepository _consultaRepository { get; set; }
 
         public ConsultaController()
         {
-            ConsultaRepository consultaRepository = new ConsultaRepository();
-            
+            _consultaRepository = new ConsultaRepository();
         }
 
-        [Authorize(Roles = "3")]
         [HttpGet]
-        public IActionResult Listar()
+        public IActionResult Get()
         {
             try
             {
-                return Ok(Consulta.ListarCon());
+                return Ok(_consultaRepository.Listar());
             }
-            catch (Exception ex)
+            catch (Exception erro)
             {
-                return BadRequest(ex);
+
+                return BadRequest(erro);
             }
         }
 
-        [Authorize(Roles = "3")]
-        [HttpGet("ListarTudo")]
-        public IActionResult ListarTudo()
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
         {
             try
             {
-                return Ok(Consulta.ListarTudo());
+                return Ok(_consultaRepository.BuscarporId(id));
             }
-            catch (Exception ex)
+            catch (Exception erro)
             {
-                return BadRequest(ex);
+
+                return BadRequest(erro);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Post(Consulta consulta)
+        {
+            try
+            {
+                _consultaRepository.Cadastrar(consulta);
+
+                return StatusCode(201);
+                 
+            }
+            catch (Exception erro)
+            {
+
+                return BadRequest(erro);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Consulta ConsultaAtualizada)
+        {
+            try
+            {
+                _consultaRepository.Atualizar(id, ConsultaAtualizada);
+
+                return StatusCode(204);
+            }
+            catch (Exception erro)
+            {
+
+                return BadRequest(erro);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                _consultaRepository.Deletar(id);
+                return StatusCode(204);
+            }
+            catch (Exception erro)
+            {
+
+                return BadRequest(erro);
+            }
+        }
+
+        //listar minhas Consultas
+        [HttpGet("Minhas")]
+        public IActionResult GetMy()
+        {
+            try
+            {
+                int IdUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+
+                return Ok(_consultaRepository.Minhas(IdUsuario));
+            }
+            catch (Exception erro)
+            {
+
+                return BadRequest(new 
+                { 
+                    mensagem = "Não podemos mostrar suas consultas se o usuário não estiver logado!",
+                    erro
+                });
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpPatch("{id}")]
+        public IActionResult Patch(int id, Consulta ConsultaAtualizada)
+        {
+            try
+            {
+                _consultaRepository.AlterarStatus(id, ConsultaAtualizada.IdSituacao);
+
+                return StatusCode(204);
+            }
+            catch (Exception erro)
+            {
+
+                return BadRequest(new 
+                { 
+                    mensagem = "apenas o ADM pode alterar a situação da consulta",
+                    erro
+                });
             }
         }
 
         [Authorize(Roles = "2")]
-        [HttpGet("UsuarioConsultas")]
-        public IActionResult UsuarioConsulta()
+        [HttpPatch("descricao/{id}")]
+        public IActionResult Descricao(int id, Consulta novaDescricao)
         {
             try
             {
-                int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+                _consultaRepository.Descricao(id, novaDescricao);
 
-                return Ok(Consulta.MinhasCon(idUsuario));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
-        [Authorize(Roles = "1")]
-        [HttpGet("MedicoConsultas")]
-        public IActionResult MedicoConsultas()
-        {
-            try
-            {
-                int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
-
-                return Ok(Consulta.MedicoCon(idUsuario));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
-        [Authorize(Roles = "3")]
-        [HttpGet("{id}")]
-        public IActionResult BuscarId(int id)
-        {
-            try
-            {
-                return Ok(Consulta.BuscarId(id));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
-        [Authorize(Roles = "3")]
-        [HttpPost]
-        public IActionResult NovoCon(Consulta NovoCon)
-        {
-            try
-            {
-                Consulta.Cadastrar(NovoCon);
-                return StatusCode(201);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
-        [Authorize(Roles = "3")]
-        [HttpDelete("{id}")]
-        public IActionResult Deletar(int id)
-        {
-            try
-            {
-                Consulta.Deletar(id);
                 return StatusCode(204);
             }
-            catch (Exception ex)
+            catch (Exception erro)
             {
-                return BadRequest(ex);
-            }
-        }
 
-        [Authorize(Roles = "1")]
-        [HttpPut("{id}")]
-        public IActionResult AtualizarDados(int id, Consulta NovaCon)
-        {
-            try
-            {
-                Consulta.Atualizar(id, NovaCon);
-                return StatusCode(204);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+              return BadRequest(new 
+              { 
+                mensagem = "Apenas o médico pode alterar a descrição!",
+                erro
+              });
+            }    
         }
-
-        [Authorize(Roles = "3")]
-        [HttpPatch("{id}")]
-        public IActionResult Patch(int id, Consulta status)
-        {
-            try
-            {
-                Consulta.Status(id, status.IdSituacao.ToString());
-                return StatusCode(204);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
-    }
+    }   
 }    
 

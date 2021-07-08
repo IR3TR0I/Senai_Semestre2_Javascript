@@ -14,85 +14,97 @@ namespace Senai.SPMGMobile.WebApi.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
+
+    [Authorize(Roles = "1")]
     public class TiposUsuariosController : ControllerBase
     {
-        private ITipoUsuarioRepository Tipo { get; set; }
+        private ITipoUsuarioRepository _tiposUsuarioRepository { get; set; }
 
         public TiposUsuariosController()
         {
-            Tipo = new TipoUsuarioRepository();
+            _tiposUsuarioRepository = new TipoUsuarioRepository();
         }
 
-        [Authorize(Roles = "3")]
         [HttpGet]
-        public IActionResult Listar()
+        public IActionResult Get()
         {
             try
             {
-                return Ok(Tipo.Listar());
+                //Retorna a requisição e chama o método
+                return Ok(_tiposUsuarioRepository.Listar());
             }
-            catch (Exception ex)
+            catch (Exception Erro)
             {
-                return BadRequest(ex);
+
+                return BadRequest(Erro);
             }
         }
 
-        [Authorize(Roles = "3")]
-        [HttpGet("Lista")]
-        public IActionResult ListarUser()
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
         {
             try
             {
-                return Ok(Tipo.ListarUser());
+                //Retorna a requisição e chama o método
+                return Ok(_tiposUsuarioRepository.BuscarPorId(id));
             }
-            catch (Exception ex)
+            catch (Exception Erro)
             {
-                return BadRequest(ex);
+
+                return BadRequest(Erro);
             }
         }
 
-        [Authorize(Roles = "3")]
         [HttpPost]
-        public IActionResult Cadastrar(TiposUsuario NovoTipo)
+        public IActionResult Post(TiposUsuario novoTipoUsuario)
         {
             try
             {
-                Tipo.Cadastrar(NovoTipo);
+                //Retorna a requisição e chama o método
+                _tiposUsuarioRepository.Cadastrar(novoTipoUsuario);
+
+                //retornar Status Code 201
                 return StatusCode(201);
             }
-            catch (Exception ex)
+            catch (Exception Ex)
             {
-                return BadRequest(ex);
+
+                return BadRequest(Ex);
             }
         }
 
-        [Authorize(Roles = "3")]
-        [HttpDelete("{id}")]
-        public IActionResult Deletar(int id)
-        {
-            try
-            {
-                Tipo.Deletar(id);
-                return StatusCode(204);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
-        [Authorize(Roles = "3")]
         [HttpPut("{id}")]
-        public IActionResult Atualizar(int id, TiposUsuario NovoTipo)
+        public IActionResult Put(int id, TiposUsuario tipoUsuarioAtualizado)
         {
             try
             {
-                Tipo.Atualizar(id, NovoTipo);
+                //Retorna a requisição e chama o método
+                _tiposUsuarioRepository.Atualizar(id, tipoUsuarioAtualizado);
+                //retornar status code 204
                 return StatusCode(204);
             }
-            catch (Exception ex)
+            catch (Exception Erro)
             {
-                return BadRequest(ex);
+
+                return BadRequest(Erro);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                //Retorna a requisição e chama o método de deletar por Id
+                _tiposUsuarioRepository.Deletar(id);
+
+                //retornar um 204
+                return StatusCode(204);
+            }
+            catch (Exception Erro)
+            {
+
+                return BadRequest(Erro);
             }
         }
     }

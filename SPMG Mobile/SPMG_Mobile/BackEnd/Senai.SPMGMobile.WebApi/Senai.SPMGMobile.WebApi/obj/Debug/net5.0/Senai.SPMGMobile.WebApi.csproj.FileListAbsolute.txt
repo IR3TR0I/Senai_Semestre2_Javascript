@@ -73,3 +73,7 @@ C:\Users\moniq\Desktop\Senai_Semestre2_Javascript\SPMG Mobile\SPMG_Mobile\BackEn
 C:\Users\moniq\Desktop\Senai_Semestre2_Javascript\SPMG Mobile\SPMG_Mobile\BackEnd\Senai.SPMGMobile.WebApi\Senai.SPMGMobile.WebApi\obj\Debug\net5.0\Senai.SPMGMobile.WebApi.genruntimeconfig.cache
 C:\Users\moniq\Desktop\Senai_Semestre2_Javascript\SPMG Mobile\SPMG_Mobile\BackEnd\Senai.SPMGMobile.WebApi\Senai.SPMGMobile.WebApi\bin\Debug\net5.0\Senai.SPMGMobile.WebApi.xml
 C:\Users\moniq\Desktop\Senai_Semestre2_Javascript\SPMG Mobile\SPMG_Mobile\BackEnd\Senai.SPMGMobile.WebApi\Senai.SPMGMobile.WebApi\obj\Debug\net5.0\Senai.SPMGMobile.WebApi.xml
+C:\Users\moniq\Desktop\Senai_Semestre2_Javascript\SPMG Mobile\SPMG_Mobile\BackEnd\Senai.SPMGMobile.WebApi\Senai.SPMGMobile.WebApi\bin\Debug\net5.0\DocumentFormat.OpenXml.dll
+C:\Users\moniq\Desktop\Senai_Semestre2_Javascript\SPMG Mobile\SPMG_Mobile\BackEnd\Senai.SPMGMobile.WebApi\Senai.SPMGMobile.WebApi\bin\Debug\net5.0\Elasticsearch.Net.dll
+C:\Users\moniq\Desktop\Senai_Semestre2_Javascript\SPMG Mobile\SPMG_Mobile\BackEnd\Senai.SPMGMobile.WebApi\Senai.SPMGMobile.WebApi\bin\Debug\net5.0\Nest.dll
+C:\Users\moniq\Desktop\Senai_Semestre2_Javascript\SPMG Mobile\SPMG_Mobile\BackEnd\Senai.SPMGMobile.WebApi\Senai.SPMGMobile.WebApi\bin\Debug\net5.0\System.IO.Packaging.dll

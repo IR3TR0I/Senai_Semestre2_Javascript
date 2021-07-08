@@ -9,10 +9,11 @@ namespace Senai.SPMGMobile.WebApi.Interrfaces
     interface IPacienteRepository
     {
         List<Paciente> Listar();
-        List<Paciente> ListarTudo();
-        Paciente BuscarId(int id);
-        void Cadastrar(Paciente NovoPac);
+
+        Paciente BuscarPorId(int id);
+
+        void Cadastrar(Paciente novoPaciente);
+
         void Deletar(int id);
-        void Atualizar(int id, Paciente NovoPac);
     }
 }

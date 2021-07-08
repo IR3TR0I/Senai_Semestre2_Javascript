@@ -12,6 +12,7 @@ namespace Senai.SPMGMobile.WebApi.Domains
         public int? IdPaciente { get; set; }
         public int? IdSituacao { get; set; }
         public DateTime DataConsulta { get; set; }
+        public string HoraConsulta { get; set; }
         public string Descricao { get; set; }
 
         public virtual Medico IdMedicoNavigation { get; set; }

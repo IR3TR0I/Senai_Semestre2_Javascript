@@ -33,11 +33,14 @@
     ".NETCoreApp,Version=v5.0": {
       "Senai.SPMGMobile.WebApi/1.0.0": {
         "dependencies": {
+          "DocumentFormat.OpenXml": "2.13.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "5.0.7",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "5.0.7",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.7",
           "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.1.6",
           "Microsoft.EntityFrameworkCore.Tools": "5.0.7",
+          "Microsoft.IdentityModel.Tokens": "6.11.1",
+          "NEST": "7.13.2",
           "Swashbuckle.AspNetCore": "6.1.4",
           "Swashbuckle.AspNetCore.Swagger": "6.1.4",
           "System.Data.SqlClient": "4.8.2",
@@ -329,6 +332,36 @@
         },
         "compile": {
           "Senai.SPMGMobile.WebApi.dll": {}
+        }
+      },
+      "DocumentFormat.OpenXml/2.13.0": {
+        "dependencies": {
+          "System.IO.Packaging": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {
+            "assemblyVersion": "2.13.0.0",
+            "fileVersion": "2.13.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {}
+        }
+      },
+      "Elasticsearch.Net/7.13.2": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "System.Buffers": "4.5.1",
+          "System.Diagnostics.DiagnosticSource": "5.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Elasticsearch.Net.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.13.2.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.1/Elasticsearch.Net.dll": {}
         }
       },
       "Humanizer.Core/2.8.26": {
@@ -750,6 +783,20 @@
           "Microsoft.NETCore.Platforms": "3.1.0"
         }
       },
+      "NEST/7.13.2": {
+        "dependencies": {
+          "Elasticsearch.Net": "7.13.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Nest.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.13.2.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Nest.dll": {}
+        }
+      },
       "NETStandard.Library/1.6.1": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -957,15 +1004,7 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.Buffers/4.3.0": {
-        "dependencies": {
-          "System.Diagnostics.Debug": "4.3.0",
-          "System.Diagnostics.Tracing": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.0",
-          "System.Threading": "4.3.0"
-        }
-      },
+      "System.Buffers/4.5.1": {},
       "System.Collections/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -1190,7 +1229,7 @@
       "System.IO.Compression/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
-          "System.Buffers": "4.3.0",
+          "System.Buffers": "4.5.1",
           "System.Collections": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
           "System.IO": "4.3.0",
@@ -1208,7 +1247,7 @@
       },
       "System.IO.Compression.ZipFile/4.3.0": {
         "dependencies": {
-          "System.Buffers": "4.3.0",
+          "System.Buffers": "4.5.1",
           "System.IO": "4.3.0",
           "System.IO.Compression": "4.3.0",
           "System.IO.FileSystem": "4.3.0",
@@ -1234,6 +1273,17 @@
       "System.IO.FileSystem.Primitives/4.3.0": {
         "dependencies": {
           "System.Runtime": "4.3.0"
+        }
+      },
+      "System.IO.Packaging/4.7.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.IO.Packaging.dll": {
+            "assemblyVersion": "4.0.5.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        },
+        "compile": {
+          "ref/netstandard2.0/System.IO.Packaging.dll": {}
         }
       },
       "System.Linq/4.3.0": {
@@ -3500,6 +3550,20 @@
       "serviceable": false,
       "sha512": ""
     },
+    "DocumentFormat.OpenXml/2.13.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0m9oxdnAwIyq6+0L/bGfyPkkakPuVI/zT5AYQgN5jbMmNJkCVFLiZmtjtqXrTbStCBJu/yxS3nS/6zTe2mT1Nw==",
+      "path": "documentformat.openxml/2.13.0",
+      "hashPath": "documentformat.openxml.2.13.0.nupkg.sha512"
+    },
+    "Elasticsearch.Net/7.13.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vJyFolb5BmQt1SDAZG4QHo+9Ygs0sa70JssTN3+6+SintWJMG4c0U5bumj/S17wwxvtDze/ZWzuMqSPWFWm/Fg==",
+      "path": "elasticsearch.net/7.13.2",
+      "hashPath": "elasticsearch.net.7.13.2.nupkg.sha512"
+    },
     "Humanizer.Core/2.8.26": {
       "type": "package",
       "serviceable": true,
@@ -3766,6 +3830,13 @@
       "path": "microsoft.win32.systemevents/4.7.0",
       "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
     },
+    "NEST/7.13.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DGIa3yb/QaldQ/vtdO0r0jh2C6oIHS9Got+7HiQWJ+GSN/kI4wCN4SXsY3gGfi0P1j3hOl81+14uT7+UxCg/Ew==",
+      "path": "nest/7.13.2",
+      "hashPath": "nest.7.13.2.nupkg.sha512"
+    },
     "NETStandard.Library/1.6.1": {
       "type": "package",
       "serviceable": true,
@@ -3962,12 +4033,12 @@
       "path": "system.appcontext/4.3.0",
       "hashPath": "system.appcontext.4.3.0.nupkg.sha512"
     },
-    "System.Buffers/4.3.0": {
+    "System.Buffers/4.5.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ratu44uTIHgeBeI0dE8DWvmXVBSo4u7ozRZZHOMmK/JPpYyo0dAfgSiHlpiObMQ5lEtEyIXA40sKRYg5J6A8uQ==",
-      "path": "system.buffers/4.3.0",
-      "hashPath": "system.buffers.4.3.0.nupkg.sha512"
+      "sha512": "sha512-Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg==",
+      "path": "system.buffers/4.5.1",
+      "hashPath": "system.buffers.4.5.1.nupkg.sha512"
     },
     "System.Collections/4.3.0": {
       "type": "package",
@@ -4150,6 +4221,13 @@
       "sha512": "sha512-6QOb2XFLch7bEc4lIcJH49nJN2HV+OC3fHDgsLVsBVBk3Y4hFAnOBGzJ2lUu7CyDDFo9IBWkSsnbkT6IBwwiMw==",
       "path": "system.io.filesystem.primitives/4.3.0",
       "hashPath": "system.io.filesystem.primitives.4.3.0.nupkg.sha512"
+    },
+    "System.IO.Packaging/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9VV4KAbgRQZ79iEoG40KIeZy38O30oWwewScAST879+oki8g/Wa2HXZQgrhDDxQM4GkP1PnRJll05NMiVPbYAw==",
+      "path": "system.io.packaging/4.7.0",
+      "hashPath": "system.io.packaging.4.7.0.nupkg.sha512"
     },
     "System.Linq/4.3.0": {
       "type": "package",

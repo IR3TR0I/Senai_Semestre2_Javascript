@@ -13,41 +13,44 @@ namespace Senai.SPMGMobile.WebApi.Repositories
     {
         SpMedGroupContext ctx = new SpMedGroupContext();
 
-        public void Atualizar(int id, TiposUsuario NovoTipo)
+        public void Atualizar(int id, TiposUsuario tiposUsuarioAtualizado)
         {
-            TiposUsuario TipoBuscado = ctx.TiposUsuarios.Find(id);
+            TiposUsuario tipoUsuarioBuscado = ctx.TiposUsuarios.Find(id);
 
-            if (NovoTipo.TituloTipoUsuario != null)
+            if (tiposUsuarioAtualizado.TituloTipoUsuario != null)
             {
-                TipoBuscado.TituloTipoUsuario = NovoTipo.TituloTipoUsuario;
+                tipoUsuarioBuscado.TituloTipoUsuario = tiposUsuarioAtualizado.TituloTipoUsuario;
             }
 
-            ctx.TiposUsuarios.Update(TipoBuscado);
+            ctx.TiposUsuarios.Update(tipoUsuarioBuscado);
+
             ctx.SaveChanges();
         }
 
-        public void Cadastrar(TiposUsuario NovoTipo)
+        public TiposUsuario BuscarPorId(int id)
         {
-            ctx.TiposUsuarios.Add(NovoTipo);
+            return ctx.TiposUsuarios.FirstOrDefault(tu => tu.IdTipoUsuario == id);
+        }
+
+        public void Cadastrar(TiposUsuario novoTipoUsuario)
+        {
+            ctx.TiposUsuarios.Add(novoTipoUsuario);
+
             ctx.SaveChanges();
         }
 
         public void Deletar(int id)
         {
-            TiposUsuario TipoBuscado = ctx.TiposUsuarios.Find(id);
-            ctx.TiposUsuarios.Remove(TipoBuscado);
+            TiposUsuario tiposUsuarioBuscado = ctx.TiposUsuarios.Find(id);
+
+            ctx.TiposUsuarios.Remove(tiposUsuarioBuscado);
+
             ctx.SaveChanges();
         }
 
         public List<TiposUsuario> Listar()
         {
             return ctx.TiposUsuarios.ToList();
-        }
-
-        public List<TiposUsuario> ListarUser()
-        {
-            return ctx.TiposUsuarios.
-                Include(e => e.Usuarios).ToList();
         }
     }
 }

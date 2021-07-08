@@ -16,46 +16,49 @@ namespace Senai.SPMGMobile.WebApi.Controllers
     [ApiController]
     public class UsuariosController : ControllerBase
     {
-        private new IUsuarioRepository User { get; set; }
-
-        public UsuariosController()
+        private IUsuarioRepository _usuarioRepository { get; set; }
+        private UsuariosController()
         {
-            User = new UsuarioRepository();
+            _usuarioRepository = new UsuarioRepository();
         }
-        [Authorize(Roles = "3")]
+
         [HttpGet]
-        public IActionResult Listar()
+        public IActionResult Get()
         {
             try
             {
-                return Ok(User.Lista());
+                // Retorna a resposta da requisição fazendo a chamada para o método
+                return Ok(_usuarioRepository.Listar());
             }
-            catch (Exception ex)
+            catch (Exception erro)
             {
-                return BadRequest(ex);
+
+                return BadRequest(erro);
             }
         }
-
-        [Authorize(Roles = "3")]
         [HttpGet("{id}")]
-        public IActionResult BuscarId(int id)
+        public IActionResult GetbyId(int id)
         {
             try
             {
-                return Ok(User.BuscarId(id));
+                // Retorna a resposta da requisição e chama o método
+                return Ok(_usuarioRepository.BuscarPorId(id));
             }
-            catch (Exception ex)
+            catch (Exception ErrorMessage)
             {
-                return BadRequest(ex);
+
+                return BadRequest(ErrorMessage);
             }
         }
 
         [HttpPost]
-        public IActionResult Cadastro(Usuario NovoUser)
+        public IActionResult Post(Usuario novoUsuario)
         {
             try
             {
-                User.Cadastro(NovoUser);
+                // Faz a chamada para o método
+                _usuarioRepository.Cadastrar(novoUsuario);
+                // Retorna um status code
                 return StatusCode(201);
             }
             catch (Exception ex)
@@ -64,13 +67,15 @@ namespace Senai.SPMGMobile.WebApi.Controllers
             }
         }
 
-        [Authorize(Roles = "2")]
-        [HttpDelete("{id}")]
-        public IActionResult Deletar(int id)
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Usuario usuarioAtualizado)
         {
             try
             {
-                User.Deletar(id);
+                // Faz a chamada para o método
+                _usuarioRepository.Atualizar(id, usuarioAtualizado);
+
+                // Retorna um status code
                 return StatusCode(204);
             }
             catch (Exception ex)
@@ -79,17 +84,19 @@ namespace Senai.SPMGMobile.WebApi.Controllers
             }
         }
 
-        [Authorize(Roles = "2")]
-        [HttpPut("{id}")]
-        public IActionResult Atualizar(int id, Usuario NovoUser)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
             try
             {
-                User.Atualizar(id, NovoUser);
+                //Chamando o método
+                _usuarioRepository.Deletar(id);
+
                 return StatusCode(204);
             }
             catch (Exception ex)
             {
+
                 return BadRequest(ex);
             }
         }

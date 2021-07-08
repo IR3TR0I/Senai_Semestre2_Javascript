@@ -31,7 +31,8 @@ namespace Senai.SPMGMobile.WebApi.Repositories
             ctx.SaveChanges();
         }
 
-        public Paciente BuscarId(int id)
+
+        public Paciente BuscarPorId(int id)
         {
             return ctx.Pacientes.FirstOrDefault(e => e.IdPaciente == id);
         }

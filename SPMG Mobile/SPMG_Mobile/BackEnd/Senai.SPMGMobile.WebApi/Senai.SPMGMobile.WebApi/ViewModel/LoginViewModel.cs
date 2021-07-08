@@ -8,12 +8,11 @@ namespace Senai.SPMGMobile.WebApi.ViewModel
 {
     public class LoginViewModel
     {
+        //Required Define que a propriedade é obrigatória
         [Required(ErrorMessage= "Coloque um Email de Usuário")]
-        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-
+        //Required Define que a propriedade é obrigatória
         [Required(ErrorMessage = "Coloque uma Senha de Usuário")]
-        [DataType(DataType.Password)]
         public string Senha { get; set; }
     }
 }

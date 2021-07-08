@@ -18,6 +18,8 @@ namespace Senai.SPMGMobile.WebApi.Domains
         public string Email { get; set; }
         public string Senha { get; set; }
 
+        public string Nome { get; set; }
+
         public virtual TiposUsuario IdTipoUsuarioNavigation { get; set; }
         public virtual ICollection<Medico> Medicos { get; set; }
         public virtual ICollection<Paciente> Pacientes { get; set; }
